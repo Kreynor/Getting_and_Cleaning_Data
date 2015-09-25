@@ -5,10 +5,6 @@
 
 library(reshape2)
 
-if(0){
-  setwd("C:\\Users\\wvantrump\\Box Sync\\My Documents\\HR_Stuff\\Data_Sci_Cert\\Getting_Cleaning_Data\\Project")
-}
-
 #Download the dataset
 download.file("http://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip","project_data.zip",
               mode="w", method="internal")
@@ -63,3 +59,7 @@ all_data = rbind(test_data,train_data)
 #recast data into a summary dataset with means for each subject for each activity
 data_melt = melt(all_data, id.vars = c("subject","activity","dataset"))
 tidy_data = cast(data_melt,subject + activity ~ variable,mean)
+
+#Save tidy dataset
+setwd("../../")
+write.table(tidy_data,"tidy_data.txt",row.name=FALSE)
